@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const app = express(); // create an instance of express
 const Knex = require("knex"); // SQL query builder
+const cors = require('cors');
 /* var PORT = 4000; */
 /* var http = require("http");
 var https = require("https"); */
@@ -10,7 +11,10 @@ var https = require("https"); */
   if (err) console.log("Error in server setup");
   console.log("Server listening on Port", PORT);
 }); */
-
+app.use(cors({
+  methods: ['GET','PATCH'],
+  origin: '*'
+}));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
