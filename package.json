@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "local:h": "firebase use dashboard-hml && firebase serve",
-    "start": "nodemon ./server.js"
+    "start": "node ./dist/server.js",
+    "dev": "nodemon src/server.js"
   },
   "dependencies": {
     "axios": "^0.24.0",
