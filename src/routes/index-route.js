@@ -70,7 +70,7 @@ router.get("/", async (req, res, next) =>  {
         try {
     
           let estoque = [];
-         await knex.raw(`select e.id, p.nome as nome, e.e_local, e.numero_prateleira, e.quantidade, f.nome as fornecedor from estoque e inner join produto p on p.codigo_barra = e.produto_codigo inner join fornecedor f on f.cnpj =e.fornecedor_cnpj `)
+         await knex.raw(`select e.id, p.nome as nome, e.e_local, e.numero_prateleira, e.quantidade, f.nome as fornecedor from estoque e inner join produto p on p.id_estoque = e.id inner join fornecedor f on f.cnpj =p.fornecedor_cnpj `)
           .then((data) => {
             estoque =data.rows;
           })
@@ -159,7 +159,7 @@ router.get("/", async (req, res, next) =>  {
               try {
                 let estoque=[];
   
-            await knex.raw(`SELECT e.produto_codigo, SUM(e.quantidade), p.nome from produto p inner join estoque e on p.codigo_barra = e.produto_codigo group by e.produto_codigo, p.nome`)
+            await knex.raw(`SELECT e.id, SUM(e.quantidade), p.nome from produto p inner join estoque e on p.id_estoque = e.id group by e.id, p.nome`)
             .then((data) => {
               estoque = data.rows;
               
